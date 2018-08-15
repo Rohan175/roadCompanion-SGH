@@ -1,0 +1,119 @@
+/* strip the ul of padding and list styling */
+.navigation{
+	width: 100%;
+	min-height: 50px;
+	background: #031017;
+	padding-left: 50px;
+	margin-top: 15px;
+}
+.navigation ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+}
+.navigation li{
+	display: inline-block;
+	float: left;
+	margin-right: 1px;
+}
+/* style for menu links */
+.navigation li a{
+	display: block;
+	min-width: 140px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	font-family: Century Gothic;
+	color: #fff;
+	background: #031017;
+	text-decoration: none;
+}
+/* Hover state for top level links */
+.navigation li:hover a{
+	background:#D3B53D;
+	transition: 0.5s background;
+	transition-delay: 0.5s color;
+}
+/*style for dropdown links*/
+.navigation li:hover ul li a{
+	background: #d9d9d9;
+	color: #031017;
+	height: 40px;
+	line-height: 40px;
+	transition: 0.25s background;
+	transition-delay: 0.25s color;
+}	
+/*hover state for dropdown links*/
+.navigation li:hover ul li a:hover{
+	color: #fff;
+	background: #D3B53D;
+	transition: 0.25s background;
+	transition-delay: 0.25s color;
+}
+/* hide the dropdown links */
+.navigation li ul{
+	display: none;
+}
+/*make dropdown links vertical*/
+.navigation li ul li{
+	display: block;
+	float: none;
+}	
+/*prevent text wrapping on dropdown links*/
+.navigation li ul li a{
+	width: auto;
+	min-width: 140px;
+	padding: 0 20px;
+}
+/*display the dropdown on hover*/
+.navigation ul li a:hover + .hidden, .hidden:hover{
+	display: block;
+	transition: 0.25s background;
+	transition-delay: 0.25s color;
+}
+/*hide checkbox*/
+input[type=checkbox]{
+	display: none;
+}
+/*show the menu invisible checkbox checked*/
+input[type=checkbox]:checked ~ #menu{
+	display: block;
+}
+.show-menu{
+	font-family: Century Gothic;
+	text-decoration: none;
+	color: #fff;
+	background-color: #D3B53D;
+	text-align: center;
+	padding: 10px 0;
+	display: none;
+}
+/*responsive style*/
+@media screen and (max-width: 760px){
+	/*make dropdown links appear links*/
+	.navigation ul{
+		position: static;
+		display: none;
+	}
+	/*create vertical spacing */
+	.navigation li{
+		margin-bottom: 1px;
+	}
+	/*make all menu links full width*/
+	.navigation ul li,.navigation  li a{
+		width: 100%;
+	}
+	.show-menu{
+		display: block;
+		line-height: 30px;
+	}
+	.navigation{
+		height: 44px;
+		padding-left: 0;
+	}
+	.border-bottom{
+		display: none;
+	}
+}
+	

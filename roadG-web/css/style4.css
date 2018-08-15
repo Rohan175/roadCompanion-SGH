@@ -1,0 +1,191 @@
+html{
+	position: relative;
+	min-height: 100%;
+}
+body{
+	min-height: 100%;
+}
+header{
+	margin-top: 20px;
+}
+h1.my-heading{
+	margin-top: 25px;
+	font-size: 35px !important;
+	color: #001233;
+}
+.my-logo{
+	width: 140px;
+}
+.cell{
+	border: 1px solid;
+}
+/*navigation*/
+.navigation li a.active{
+	background: #D3B53D;
+}
+.navigation li a.main-link{
+	border-bottom: 4px solid #D3B53D;
+}
+.navigation{
+	border-bottom: 4px solid #D3B53D;
+}
+.container-90{
+	width: 90%;
+	margin: auto;
+}
+/*footer*/
+html{ height:100%; }
+body{ padding:0; margin:0; position:relative; }
+
+body::after{ content:''; display:block; height:100px; }
+
+footer{
+	border-top: #D3B53D solid 4px;
+  position:absolute;
+  bottom:12px;
+	padding-left: 40px;
+	color:#fff;
+  width:100%;
+	line-height: 60px; /* Vertically center the text there */
+  height:60px; /* Set the fixed height of the footer here */
+	background-color: #031017;
+}
+@media screen and (max-width: 760px){
+	.navigation li a.active, .navigation li a.main-link{
+		border-bottom: 0px solid;
+	}
+	h1.my-heading{
+		font-size: 30px;
+	}
+}
+/*button*/
+.my-btn{
+	background: #031017;
+	color: #fff;
+	text-decoration: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+}
+.my-btn:hover{
+	background: #D3B53D;
+	color: #fff;
+	text-decoration: none;
+	transition: 0.5s background;
+	transition-delay: 0.5s color;
+}
+.my-btn-box{
+	border: 1px solid #031017;
+	padding: 5px 10px;
+	border-radius: 4px;
+	color: #031017;
+}
+.my-btn-box:hover{
+	background: #031017;
+	color: #fff;
+	text-decoration: none;
+	transition: 0.5s background;
+	transition-delay: 0.5s color;
+}
+.my-btn-box-lg{
+	border: 1px solid #031017;
+	background-color: transparent;
+	padding: 3px 15px;
+	font-size: 20px;
+	border-radius: 4px;
+	color: #031017;
+}
+.my-btn-box-lg:hover{
+	background: #031017;
+	color: #fff;
+	text-decoration: none;
+	transition: 0.5s background;
+	transition-delay: 0.5s color;
+}
+.my-btn-lg{
+	background: #031017;
+	color: #fff;
+	text-decoration: none;
+	padding: 7px 20px;
+	font-size: 20px;
+	border-radius: 4px;
+}
+.my-btn-lg:hover{
+	background: #369693;
+	color: #fff;
+	text-decoration: none;
+	transition: 0.5s background;
+	transition-delay: 0.5s color;
+}
+/*form*/
+.outline{
+	outline: 4px black;
+}
+.my-input:empty{
+	border: none;
+	outline: none;
+	border-bottom: 1px solid #D3B53D;
+	width: 100px;
+	transition: 0.25s width;
+	transition-timing-function: ease-in-out;
+}
+.my-input:focus{
+	width: 250px;
+	border-bottom: 1.5px solid #D3B53D;
+	transition: 0.25s width;
+	transition-timing-function: ease-in-out;
+}
+input.my-input:valid{
+	width: 250px;
+	border-bottom: 1.5px solid #D3B53D;
+}
+/*form*/
+.form-box{
+	width: 30%;
+	margin: auto;
+	margin-top: 30px;
+	padding: 10px;
+}
+h1.form-heading{
+	font-size: 30px;
+}
+select{
+	margin-bottom: 22px !important;
+	width: 80%;
+	padding: 5px;
+}
+.input-box{
+	width: 100%;
+	margin: auto;
+	position: relative;
+	box-sizing: border-box;
+	padding: 15px 0;
+}
+.input{
+	width: 100%;
+	position: relative;
+	height: 30px;
+	background: transparent;
+	border: none;
+	outline: none;
+	font-size: 22px;
+	border-bottom: 0.5px solid grey;
+}
+.input-text{
+	position: absolute;
+	line-height: 30px;
+	font-size: 25px;
+	transition: .5s;
+	opacity: .5;
+}
+.focus .input-text{
+	transform: translateY(-25px);
+	font-size: 16px;
+	opacity: 1;
+	color: #D3B53D;
+}
+.focus .input{
+	border-bottom: 1.5px solid #D3B53D;
+}
+.my-icon{
+	
+}

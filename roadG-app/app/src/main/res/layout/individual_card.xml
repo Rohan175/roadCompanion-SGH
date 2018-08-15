@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:layout_marginLeft="-2dp"
+    android:layout_marginRight="-2dp"
+    android:elevation="16dp"
+    android:orientation="horizontal"
+    app:cardUseCompatPadding="true">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:selectableItemBackground"
+        android:orientation="vertical"
+        android:paddingRight="8dp">
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+
+        <TextView
+            android:id="@+id/talukaSpinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemImage"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Taluka :"
+            app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        `
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/mGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toBottomOf="@+id/talukaSpinner2" />
+
+        <TextView
+            android:id="@+id/tvTitle4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:capitalize="words"
+            android:text="Status :"
+            app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:capitalize="characters"
+            android:paddingEnd="10dp"
+            android:text="In Progress"
+            android:textAppearance="@style/mText"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTitle4"
+            app:layout_constraintStart_toEndOf="@+id/tvTitle4" />
+
+        <TextView
+            android:id="@+id/talukaSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="TextView"
+            android:textAppearance="@style/mText"
+            app:layout_constraintBottom_toBottomOf="@+id/talukaSpinner2"
+            app:layout_constraintStart_toEndOf="@+id/talukaSpinner2" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:text="Reported On :"
+            app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle4" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:capitalize="words"
+            android:text="13/3/2018"
+            android:textAppearance="@style/mText"
+            app:layout_constraintBottom_toBottomOf="@+id/textView8"
+            app:layout_constraintStart_toEndOf="@+id/textView8" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

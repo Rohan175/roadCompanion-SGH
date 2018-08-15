@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/logout"
+        android:title="logOut" />
+    <!--<item-->
+        <!--android:id="@+id/open1"-->
+        <!--android:title="Image Off 0" />-->
+    <!--<item-->
+        <!--android:id="@+id/open2"-->
+        <!--android:title="Location Off 1" />-->
+
+    <!--<item-->
+        <!--android:id="@+id/glide"-->
+        <!--android:title="Normal Mode" />-->
+
+    <!--<item android:id="@+id/open4"-->
+        <!--android:title="jsonHardWay" />-->
+
+    <item android:id="@+id/link"
+        android:title="Change link" />
+
+</menu>

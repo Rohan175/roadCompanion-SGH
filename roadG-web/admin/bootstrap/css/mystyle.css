@@ -1,0 +1,62 @@
+.top_bar{
+	background-color: #F26522;
+	padding: 5px 0;
+}
+.social_icons{
+	margin-right: 5px;
+}
+.contact_info{
+	color: white;
+	font-size: 16px;
+}
+.menu-bar{
+	margin-top: 25px;
+}
+.menu-bar a{
+	padding: 15px 20px;
+	text-decoration: none;
+	color: gray;
+}
+.menu-bar a:hover, .menu-bar a.active{
+	background-color: #F26522;
+	color: white;
+}
+.leh{
+	margin-top: 25px;
+	width: 100%;
+}
+.our-courses{
+	background: radial-gradient(circle, #009cde, #003087);
+	padding: 25px 0;
+	margin-top: 25px;
+}
+.our-courses h1{
+	color: white;
+}
+.footer{
+	background-color: #333333;
+	padding: 20px 0;
+	color: white;
+}
+.new-row{
+	margin-top: 20px;
+}
+.footer p{
+	color: white;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.footer ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.footer ul li a{
+	color: white;
+	font-size: 15px;
+}
+@media (max-width: 603px){
+	.our-courses [class*="col-"]{
+		margin-bottom: 25px;
+	}
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rsking175453.com.sgh_try1.ScrollingActivity"
+    tools:showIn="@layout/activity_scrolling">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/textView17"
+            style="@style/mText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Taluka" />
+
+        <TextView
+            android:id="@+id/talukaSpinner2"
+            android:layout_width="match_parent"
+            style="@style/mNormalText"
+            android:paddingBottom="4dp"
+            android:layout_height="wrap_content"
+            android:text="area_name" />
+
+        <TextView
+            android:id="@+id/textView32"
+            style="@style/mText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Type Of Road" />
+
+        <TextView
+            android:id="@+id/SH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/mNormalText"
+            android:paddingBottom="4dp"
+            android:text="type" />
+
+        <TextView
+            android:id="@+id/textView30"
+            style="@style/mText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Type Of Grivance" />
+
+
+        <TextView
+            android:id="@+id/griv"
+            android:layout_width="match_parent"
+            style="@style/mNormalText"
+            android:paddingBottom="4dp"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView28"
+            style="@style/mText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Discription" />
+
+        <TextView
+            android:id="@+id/discription"
+            android:layout_width="match_parent"
+            style="@style/mNormalText"
+            android:paddingBottom="4dp"
+            android:layout_height="wrap_content"
+            android:text="this is some very ;onmskadjgfoadsfj;sdkjf;lkadsjflkds" />
+
+        <TextView
+            android:id="@+id/textView26"
+            style="@style/mText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Satus" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            style="@style/mNormalText"
+            android:paddingBottom="4dp"
+            android:layout_height="wrap_content"
+            android:text="IN Progrss" />
+
+        <Button
+            android:id="@+id/Change_Status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Status" />
+
+        <Button
+            android:id="@+id/pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
