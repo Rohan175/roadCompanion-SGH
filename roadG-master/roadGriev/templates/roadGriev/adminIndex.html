@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Road Grievence Complaint System | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'roadGriev/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'roadGriev/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'roadGriev/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'roadGriev/js/bootstrap.min.js' %}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://highcharts.github.io/export-csv/export-csv.js"></script>
+
+
+    <script type="text/javascript">
+
+    </script>
+  </head>
+  <body style="margin-top: 56px;">
+    <nav class="navbar navbar-dark bg-dark justify-content-between fixed-top">
+      <a class="navbar-brand" style="color:white;">RGCS</a>
+      <a href="./logout/" class="btn btn-outline-light">Logout</a>
+    </nav>
+    <ul class="menubar" style="position:fixed;width:300px;">
+      <br />
+      <li style="text-align:center;">
+        <img src="{% static 'roadGriev/images/login.jpg' %}" style="width:100px;height:auto;">
+      </li>
+      <br />
+      <li style="text-align:center;text-transform: capitalize;">
+        <h5>{{name}}</h5>
+        <h6>{{user_type}}</h6>
+      </li>
+      <br />
+      <li><a href="../" class="link-active" id="dasTab">Dashboard</a></li>
+      <li><a href="../addOfficer/" id="reqTab">Add Officer</a></li>
+      <li><a href="../setHirarchy/" id="repTab">Set Hierarchy</a></li>
+      <!-- <li><a href="../profile/" id="proTab">Profile</a></li>
+      <li><a href="../settings/" id="setTab">Settings</a></li> -->
+    </ul>
+    <div id="tabPen" style="margin-left:300px;padding:10px;">
+      <div class="row boxes" style="text-align:center;">
+        <div class="col-sm-3">
+          <div class="box blue-box">
+            Total Users<br />
+            <span class="box-num">{{totalUsers}}</span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box red-box">
+            Total Complaints<br />
+            <span class="box-num">{{totalComplaints}}</span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box yellow-box">
+            Hierarchy Level<br />
+            <span class="box-num">{{HierarchyLevel}}</span>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="box green-box">
+            Total Officers<br />
+            <span class="box-num">{{TotalOfficers}}</span>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row" style="padding:20px;">
+        <div class="input-group mb-3">
+          <select class="input-group form-control" name="ach">
+            <option value="0">ALL</option>
+            <option value="1">Migrated</option>
+          </select>
+          <div class="input-group-append">
+            <a href="../../../ArchiveData?date=2018-03-26" class="btn btn-outline-secondary" id="addOff">UPDATE</a>
+          </div>
+        </div>
+      </div>
+      <div class="" style="margin-top: 20px;">
+        <h3  style="text-align:center;">Migrated Complaints</h3><br />
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Road Type</th>
+              <th scope="col">Grievence Type</th>
+              <th scope="col">Work Status</th>
+              <th scope="col">Time</th>
+              <th scope="col">##</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for req in Migrated %}
+              <tr>
+                <td>{{ req.road_type }}</td>
+                <td>{{ req.grievence_type }}</td>
+                <td>{{ req.workStatus }}</td>
+                <td>{{ req.time }}</td>
+                <td><a href="../Complaint/{{req.id}}" class="btn btn-primary btn-sm" target="_blank">View</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

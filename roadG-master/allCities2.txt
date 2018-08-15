@@ -1,0 +1,339 @@
+  var a = {
+                Gujarat: [
+            {
+                "District":"Ahmedabad",
+                 "Taluka":["ahmedabad","Bavla","Daskroi","Detroj-Rampura","Dhandhuka","Dholera","Dholka","Mandal","Sanand","Viramgam"]
+
+            },
+
+        {
+                "District":"Amreli",
+                "Taluka":["Amreli","Babra","Bagasara","Dhari","Jafrabad","Khambha","Kunkavav","Vadia","Lathi","Lilia","Rajula","Savarkundla"]
+
+          },
+
+           {
+                "District":"Anand",
+                "Taluka":[
+                      "Anand",
+                "Anklav",
+                "Borsad",
+                "Khambhat",
+                "Petlad",
+                "Sojitra",
+                "Tarapur",
+                "Umreth"
+                ]
+
+           },
+
+
+           {
+                "District":"Aravalli",
+                "Taluka":[
+                "Bayad",
+                "Bhiloda",
+                "Dhansura",
+                "Malpur",
+                "Meghraj",
+                "Modasa"
+                ]
+
+
+           },
+
+        {
+                "District":"Banaskantha",
+                "Taluka":["Amirgadh",
+                "Bhabhar",
+                "Danta",
+                "Dantiwada",
+                "Deesa",
+                "Deodar",
+                "Dhanera",
+                "Kankrej",
+                "Lakhani",
+                "Palanpur",
+                "Suigam",
+                "Tharad",
+                "Vadgam",
+                "Vav"
+                ]
+
+           },
+
+           {
+                "District":"Bharuch",
+                "Taluka":["Bharuch",
+                "Amod",
+                "Ankleshwar",
+                "Hansot",
+                "Jambusar",
+                "Jhagadia",
+                "Netrang",
+                "Vagra",
+                "Valia"
+                ]
+
+           },
+           {
+                "District":"Bhavnagar",
+                "Taluka":["Bhavnagar",
+                "Gariadhar",
+                "Ghogha",
+                "Jesar",
+                "Mahuva",
+                "Palitana",
+                "Sihor",
+                "Talaja",
+                "Umrala",
+                "Vallabhipur"
+                ]
+
+           },
+           {
+                "District":"Botad",
+                "Taluka":["Botad",
+                "Barwala",
+                "Gadhada",
+                "Ranpur"
+                ]
+
+           },
+           {
+                "District":"Chhota Udaipur",
+                "Taluka":["Chhota Udaipur",
+                "Bodeli",
+                "Jetpur pavi",
+                "Kavant",
+                "Nasvadi",
+                "Sankheda"
+                ]
+
+           },
+           {
+                "District":"Dahod",
+                "Taluka":["Dahod",
+                "Devgadh baria",
+                "Dhanpur",
+                "Fatepura",
+                "Garbada",
+                "Limkheda",
+                "Sanjeli",
+                "Jhalod"
+                ]
+
+           },
+           {
+                "District":"Dang",
+                "Taluka":["Ahwa",
+                "Subir",
+                "Waghai"
+                ]
+
+           },
+           {
+                "District":"Devbhoomi Dwarka",
+                "Taluka":[
+                  "Bhanvad",
+                  "Kalyanpur",
+                  "Khambhalia",
+                  "Okhamandal"
+                  ]
+
+           },
+           {
+                "District":"Gandhinagar",
+                "Taluka":[
+                "Gandhinagar",
+                "Dehgam",
+                "Kalol",
+                "Mansa"
+                ]
+
+           },
+           {
+                "District":"Gir Somnath",
+                "Taluka":[
+                "Gir-Gadhada",
+                "Kodinar",
+                "Sutrapada",
+                "Talala",
+                "Una",
+                "Patan-Veraval"
+                ]
+
+           },
+           {
+                "District":"Jamnagar",
+                "Taluka":[
+
+              "Jamnagar",
+              "Dhrol",
+              "Jamjodhpur",
+              "Jodiya",
+              "Kalavad",
+              "Lalpur"
+              ]
+
+           },
+           {
+                "District":"Junagadh",
+                "Taluka":[
+
+                "Junagadh City",
+                "Bhesana",
+                "Junagadh Rural",
+                "Keshod",
+                "Malia",
+                "Manavadar",
+                "Mangrol",
+                "Mendarda",
+                "Vanthali",
+                "Visavadar"
+                ]
+
+           },
+           {
+                "District":"Kutch",
+                  "Taluka":[
+                "Abdasa",
+                "Anjar",
+                "Bhachau",
+                "Bhuj",
+                "Gandhidham",
+                "Lakhpat",
+                "Mandvi",
+                "Mundra",
+                "Nakhatrana",
+                "Rapar"
+                ]
+
+           },
+                {
+                  "District":"Vadodara",
+                  "Taluka": ["Vadodara","Dabhoi","Desar","Karjan","Padra","Savli","Sinor","Vaghodia"],
+
+           },
+
+        {
+                  "District":"Valsad",
+                  "Taluka": ["Valsad","Dharampur","Kaprada","Pardi","Umbergaon","Vapi"],
+
+           },
+        {
+                  "District":"Tapi",
+                  "Taluka": ["Nizar","Songadh","Uchchhal","Valod","Vyara","Kukurmunda"],
+
+           },
+        {
+                  "District":"Surendranagar",
+                  "Taluka": ["Chotila","Chuda","Dasada","Dhrangadhra","Lakhtar","Limbdi","Muli","Sayla","Thangadh","Wadhwan"],
+
+           },
+        {
+                  "District":"Surat",
+                  "Taluka": ["Surat","Bardoli","Choryasi","Kamrej","Mahuva","Mandvi","Mangrol","Olpad","Palsana","Umarpada"],
+
+           },
+           {
+                  "District":"Sabarkantha",
+                  "Taluka": ["Himatnagar","Idar","Khedbrahma","Poshina","Prantij","Talod","Vadali","Vijaynagar"],
+
+           },
+           {
+                  "District":"Rajkot",
+                  "Taluka": ["Rajkot","Dhoraji","Gondal","Jamkandorna","Jasdan","Jetpur","Kotada Sangani","Lodhika","Paddhari","Upleta","Vinchchiya"],
+
+           },
+           {
+                  "District":"Porbandar",
+                  "Taluka": ["Porbandar","Kutiyana","Ranavav"],
+
+           },
+           {
+                  "District":"Patan",
+                  "Taluka": ["Patan","Chanasma","Harij","Radhanpur","Sami","Sankheswar","Santalpur","Sarasvati","Sidhpur"],
+
+           },
+           {
+                  "District":"Panchmahal",
+                  "Taluka": ["Ghoghamba","Godhra","Halol","Jambughoda","Kalol","Morwa Hadaf","Shehera"],
+
+           },
+           {
+                  "District":"Navsari",
+                  "Taluka": ["Navsari","Vansda","Chikhli","Gandevi","Jalalpore","Khergam"],
+
+           },
+           {
+                  "District":"Kheda",
+                  "Taluka": ["Kheda","Galteshwar","Kapadvanj","Kathlal","Mahudha","Matar","Mehmedabad","Nadiad","Thasra","Vaso"],
+
+           },
+           {
+                  "District":"Mahisagar",
+                  "Taluka": [
+
+              "Balasinor",
+              "Kadana",
+              "Khanpur",
+              "Lunawada",
+              "Santrampur",
+              "Virpur"
+
+              ],
+
+           },
+           {
+                  "District":"Mehsana",
+                  "Taluka": [
+                "Mehsana",
+                "Becharaji",
+                "Jotana",
+                "Kadi",
+                "Kheralu",
+                "Satlasana",
+                "Unjha",
+                "Vadnagar",
+                "Vijapur",
+                "Visnagar",
+                "Gojariya"
+
+                ],
+
+           },
+           {
+                  "District":"Morbi",
+                  "Taluka": [
+              "Halvad",
+              "Maliya",
+              "Morbi",
+              "Tankara",
+              "Wankaner"
+
+              ]
+
+           },
+           {
+                  "District":"Narmada",
+               "Taluka": [
+
+                "Dediapada",
+                "Garudeshwar",
+                "Nandod",
+                "Sagbara",
+                "Tilakwada"
+
+                ]
+
+
+           },
+
+
+
+
+
+      ]
+              };
+

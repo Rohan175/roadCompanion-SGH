@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Road Grievence Complaint System | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'roadGriev/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'roadGriev/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'roadGriev/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'roadGriev/js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">
+
+    </script>
+  </head>
+  <body style="margin-top: 56px;">
+    <nav class="navbar navbar-dark bg-dark justify-content-between fixed-top">
+      <a class="navbar-brand" style="color:white;">RGCS</a>
+      <a href="./logout/" class="btn btn-outline-light">Logout</a>
+    </nav>
+    <ul class="menubar" style="position:fixed;width:300px;">
+      <br />
+      <li style="text-align:center;">
+        <img src="{% static 'roadGriev/images/login.jpg' %}" style="width:100px;height:auto;">
+      </li>
+      <br />
+      <li style="text-align:center;text-transform: capitalize;">
+        <h5>{{name}}</h5>
+        <h6>{{user_type}}</h6>
+      </li>
+      <br />
+      <li><a href="../" class="link-active" id="dasTab">Dashboard</a></li>
+      <li><a href="../requests/" id="reqTab">Requests</a></li>
+      <li><a href="../reports/" id="repTab">Reports</a></li>
+      <li><a href="../profile/" id="proTab">Profile</a></li>
+      <li><a href="../settings/" id="setTab">Settings</a></li>
+    </ul>
+    <div id="tabPen" style="margin-left:300px;padding:10px;">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="offName" placeholder="ADD NEW ROLE" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" id="addOff">ADD</button>
+        </div>
+      </div>
+
+      <br /><br />
+      <h3 style="text-align:center;">Types of Grievences</h3>
+      <br /><br />
+      <div class="row" style="padding:20px;">
+        <ul id="roles" class="list-group col-sm">
+          {% for i in cats %}
+          <li class="list-group-item">{{i.title}}<button class="btn btn-primary btn-sm float-right" onclick="$('#').remove();">REMOVE</button></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <br /><br />
+    </div>
+
+    <script type="text/javascript">
+      $.get("../../../../TypesOfGrievances", function(data) {
+      $.get("../../../TypesOfGrievances", function(data) {
+        let d = ``;
+        for(var i=0;i<data.data.length;i++) {
+          d += `<li class="list-group-item">`+ data.data[i] +`<a href="http://127.0.0.1:8000/DeleteCatagory/?name=`+data.data[i]+`" class="btn btn-primary btn-sm float-right">REMOVE</a></li>`;
+        }
+        document.getElementById('roles').innerHTML = d;
+      })
+
+      $("#addOff").click(function() {
+        if ($("#offName").val() != "") {
+          $.ajax({
+            url: "../../../../AddCatagoryForm",
+            type: "POST",
+            data: {
+              'name': $("#offName").val()
+            },
+            success: function(data) {
+              alert(data.data.message);
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,157 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Road Grievence Complaint System | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'roadGriev/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'roadGriev/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'roadGriev/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'roadGriev/js/bootstrap.min.js' %}"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $( function() {
+        $( "#roles" ).sortable();
+        $( "#roles" ).disableSelection();
+      } );
+    </script>
+    <style media="screen">
+      #roles li {
+        cursor: pointer;
+      }
+      #roles, #fixRoles {
+        text-transform: capitalize;
+      }
+
+    </style>
+  </head>
+  <body style="margin-top: 56px;">
+    <nav class="navbar navbar-dark bg-dark justify-content-between fixed-top">
+      <a class="navbar-brand" style="color:white;">RGCS</a>
+      <a href="../logout/" class="btn btn-outline-light">Logout</a>
+    </nav>
+    <ul class="menubar" style="position:fixed;width:300px;">
+      <br />
+      <li style="text-align:center;">
+        <img src="{% static 'roadGriev/images/login.jpg' %}" style="width:100px;height:auto;">
+      </li>
+      <br />
+      <li style="text-align:center;text-transform: capitalize;">
+        <h5>{{name}}</h5>
+        <h6>{{user_type}}</h6>
+      </li>
+      <br />
+      <li><a href="../" id="dasTab">Dashboard</a></li>
+      <li><a href="../addOfficer/" id="reqTab">Add Officer</a></li>
+      <li><a href="../setHirarchy/" class="link-active" id="repTab">Set Hierarchy</a></li>
+      <!-- <li><a href="../profile/" id="proTab">Profile</a></li>
+      <li><a href="../settings/" id="setTab">Settings</a></li> -->
+    </ul>
+    <div id="tabPen" style="margin-left:300px;padding:20px;">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" id="offName" placeholder="ADD NEW ROLE" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" id="addOff">ADD</button>
+        </div>
+      </div>
+
+      <br /><br />
+      <h3 style="text-align:center;">SORT HIERARCHY</h3>
+      <br /><br />
+      <div class="row" style="padding:20px;">
+        <ul id="roles" class="list-group col-sm">
+
+        </ul>
+      </div>
+      <br /><br />
+      <h5 style="text-align:center;">Fixed Members</h5>
+      <div class="row" style="padding:20px;">
+        <ul id="fixRoles" class="list-group col-sm">
+        </ul>
+      </div>
+      <button id="srtbtn" class="btn btn-primary">UPDATE</button>
+    </div>
+    <script type="text/javascript">
+
+    var FIRST_BASE_OFF = "",
+        SECOND_BASE_OFF = "";
+
+      $(document).ready(function() {
+
+        $("#addOff").click(function() {
+          var nm = $("#offName").val();
+
+          var temp = $( "#roles" ).sortable( "toArray" );
+
+          var finalSort = [
+            FIRST_BASE_OFF.replace(/\s/g,''),
+            SECOND_BASE_OFF.replace(/\s/g,'')
+          ];
+          temp = temp.reverse();
+          finalSort.push(...temp);
+          console.log(finalSort);
+
+          if(finalSort.indexOf(nm.replace(/\s/g,'')) != -1) {
+            alert("already exists");
+            return;
+          }
+
+          if(nm == "") {
+            alert("please enter name");
+            return;
+          }
+          let d = `<li class="list-group-item" id="`+nm.replace(/\s/g,'')+`">`+nm+` <button class="btn btn-primary btn-sm float-right" onclick="$('#`+nm.replace(/\s/g,'')+`').remove();">REMOVE</button></li>`;
+          $("#roles").append(d);
+        });
+
+        $("#srtbtn").click(function() {
+          var temp = $( "#roles" ).sortable( "toArray" );
+          console.log(temp);
+          var finalSort = [
+            FIRST_BASE_OFF,
+            SECOND_BASE_OFF
+          ];
+          temp = temp.reverse();
+          finalSort.push(...temp);
+          console.log(finalSort);
+
+          $.ajax({
+            url: "../../../applyHierarchy/",
+            type: "POST",
+            data: {
+              'roles': finalSort
+            },
+            dataType: "JSON",
+            success: function(data) {
+              alert(data.data.message);
+            }
+          });
+        });
+
+        $.get("../../../getHierarchy", function(data) {
+          let d = ``;
+          let e = ``;
+
+          for(var i=0;i<data.total;i++) {
+            if(data.list[i].weight <= 1) {
+              e += `<li class="list-group-item" id="`+data.list[i].roleID+`">`+data.list[i].role_name+`</li>`;
+            }
+            else {
+              d += `<li class="list-group-item" id="`+data.list[i].roleID+`">`+data.list[i].role_name+` <button class="btn btn-primary btn-sm float-right" onclick="$('#`+data.list[i].roleID+`').remove();">REMOVE</button></li>`;
+            }
+
+            if(data.list[i].weight == 0)
+              FIRST_BASE_OFF = data.list[i].role_name;
+            if(data.list[i].weight == 1)
+              SECOND_BASE_OFF = data.list[i].role_name;
+          }
+          document.getElementById('roles').innerHTML = d;
+          document.getElementById('fixRoles').innerHTML = e;
+        });
+      });
+    </script>
+  </body>
+</html>

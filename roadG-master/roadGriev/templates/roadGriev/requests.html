@@ -1,0 +1,232 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Road Grievence Complaint System | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'roadGriev/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'roadGriev/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'roadGriev/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'roadGriev/js/bootstrap.min.js' %}"></script>
+
+    <script type="text/javascript">
+
+    </script>
+  </head>
+  <body style="margin-top: 56px;">
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Enter Reason for not accepting complaint</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
+
+
+
+
+    <nav class="navbar navbar-dark bg-dark justify-content-between fixed-top">
+      <a class="navbar-brand" style="color:white;">RGCS</a>
+      <a href="../logout/" class="btn btn-outline-light">Logout</a>
+    </nav>
+    <ul class="menubar" style="position:fixed;width:300px;">
+      <br />
+      <li style="text-align:center;">
+        <img src="{% static 'roadGriev/images/login.jpg' %}" style="width:100px;height:auto;">
+      </li>
+      <br />
+      <li style="text-align:center;text-transform: capitalize;">
+        <h5>{{name}}</h5>
+        <h6>{{user_type}}</h6>
+      </li>
+      <br />
+      <li><a href=".." id="dasTab">Dashboard</a></li>
+      <li><a href="../requests/" class="link-active" id="reqTab">Requests</a></li>
+      <!-- <li><a href="../reports/" id="repTab">Reports</a></li>
+      <li><a href="../profile/" id="proTab">Profile</a></li>
+      <li><a href="../settings/" id="setTab">Settings</a></li> -->
+    </ul>
+    <div id="tabPen" style="margin-left:300px;padding:20px;">
+      <div class="" >
+        <br />
+        <h3  style="text-align:center;">Requests</h3><br />
+        <div class="row">
+          <div class="col-sm" style="padding:10px;">
+            <select class="form-control" id="roadType" name="">
+              <option value="none">SELECT ROAD TYPE</option>
+              <option value="National Highway">National Highway</option>
+              <option value="State Highway">State Highway</option>
+              <option value="District Roads">District Roads</option>
+              <option value="Other Roads">Other Roads</option>
+            </select>
+          </div>
+          <div class="col-sm" style="padding:10px;">
+            <select class="form-control" id="grievanceType" name="">
+              <option value="none">SELECT GRIEVANCE TYPE</option>
+              <option value="POT HOLES">POT HOLES</option>
+              <option value="FALLEN TREE">FALLEN TREE</option>
+              <option value="DEGRADED ROADS">DEGRADED ROADS</option>
+              <option value="CRACKS LEVELING">CRACKS LEVELING</option>
+              <option value="DAMAGED BRIDGE">DAMAGED BRIDGE</option>
+              <option value="DAMAGED BRIDGE PARAPET">DAMAGED BRIDGE PARAPET</option>
+              <option value="BREACH ON A ROAD">BREACH ON A ROAD</option>
+              <option value="DAMAGED RAILING">DAMAGED RAILING</option>
+              <option value="SHARP CURVE">SHARP CURVE</option>
+              <option value="ACCIDENT PRONE ZONE">ACCIDENT PRONE ZONE</option>
+              <option value="DAMAGED STRUCTURES">DAMAGED STRUCTURES</option>
+              <option value="OTHER">OTHER</option>
+            </select>
+          </div>
+          <div class="col-sm" style="padding:10px;">
+            <select class="form-control" id="statusType" name="">
+              <option value="none">SELECT STATUS</option>
+              <option value="PENDING">PENDING</option>
+              <option value="APPROVED">APPROVED</option>
+              <option value="DISAPPROVED">DISAPPROVED</option>
+              <option value="IN PROCESS">IN PROCESS</option>
+              <option value="COMPLETED">COMPLETED</option>
+            </select>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm" style="padding:10px;">
+            <input class="form-control" id="start" type="Date">
+          </input>
+          </div>
+          <div class="col-sm" style="padding:10px;">
+            <input class="form-control" id="end" type="Date">
+          </input>
+          </div>
+          <div class="col-sm" style="padding:10px;">
+            <select class="form-control" id="emergencyOn" name="">
+              <option value="">SELECT EMERGENCY STATUS</option>
+              <option value="0">NO</option>
+              <option value="1">YES</option>
+            </select>
+          </div>
+          <div class="col-sm" style="padding:10px;">
+            <button class="btn btn-primary btn-block" id="check" name="button">SUBMIT</button>
+          </div>
+      </div>
+
+<script>
+  $("#check").click(function(){
+    var rType = $("#roadType").val();
+    var gType = $("#grievanceType").val();
+    var sType = $("#statusType").val();
+    var startDate = new Date($("#start").val());
+    var endDate = new Date($("#end").val());
+    var emergencyOn = $("#emergencyOn").val();
+
+    if(emergencyOn == '') {
+      emergencyOn = 0
+    }
+
+    console.log(startDate, endDate);
+
+    if (startDate == 'Invalid Date') {
+      startDate = '2010-01-01';
+    }
+    if (endDate == 'Invalid Date') {
+      endDate = '2018-12-31';
+    }
+
+    var startsDate = formatDate(startDate);
+    var endsDate = formatDate(endDate);
+
+    function formatDate(date){
+      var d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+          if(month.length < 2)
+            month = '0' + month;
+          if(day.length < 2)
+            day = '0' + day;
+
+          return [year,month,day].join('-');
+    }
+
+     console.log(rType,gType,sType,startsDate,endsDate);
+    $.ajax({
+      url: "../../../RequestsSort",
+      type: "GET",
+      data: {
+        'road_type':rType,
+        'grievance_type':gType,
+        'status_type':sType,
+        'startDate': startsDate,
+        'endDate': endsDate,
+        'emergencyOn': emergencyOn,
+        'officer_id': {{id}}
+      },
+      success: function(data) {
+        // body...
+        console.log(data);
+        let d = ``;
+
+        for(var i=0;i<data.len; i++) {
+          d += `
+          <tr>
+            <td>`+ data.data[i].road_type +`</td>
+            <td>`+ data.data[i].grievence_type +`</td>
+            <td>`+ data.data[i].workstatus +`</td>
+            <td>`+ data.data[i].time +`</td>
+            <td><a href="../Complaint/`+ data.data[i].id +`" class="btn btn-primary btn-sm" target="_blank">View</a></td>
+          </tr>
+          `
+        }
+
+        document.getElementById('lists').innerHTML = d;
+      }
+    });
+  })
+</script>
+
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Road Type</th>
+              <th scope="col">Grievence Type</th>
+              <th scope="col">Work Status</th>
+              <th scope="col">Time</th>
+              <th scope="col">##</th>
+            </tr>
+          </thead>
+          <tbody id="lists">
+            {% for req in requests %}
+              <tr>
+                <td>{{ req.complaint_id.road_type }}</td>
+                <td>{{ req.complaint_id.grievence_type }}</td>
+                <td>{{ req.complaint_id.workStatus }}</td>
+                <td>{{ req.complaint_id.time }}</td>
+                <td><a href="../Complaint/{{req.complaint_id.id}}" class="btn btn-primary btn-sm" target="_blank">View</a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

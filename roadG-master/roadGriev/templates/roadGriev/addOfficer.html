@@ -1,0 +1,170 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Road Grievence Complaint System | Dashboard</title>
+    <link rel="stylesheet" href="{% static 'roadGriev/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'roadGriev/css/style.css' %}">
+    <script type="text/javascript" src="{% static 'roadGriev/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'roadGriev/js/bootstrap.min.js' %}"></script>
+
+  </head>
+  <body style="margin-top: 56px;">
+    <nav class="navbar navbar-dark bg-dark justify-content-between fixed-top">
+      <a class="navbar-brand" style="color:white;">RGCS</a>
+      <a href="../logout/" class="btn btn-outline-light">Logout</a>
+    </nav>
+    <ul class="menubar" style="position:fixed;width:300px;">
+      <br />
+      <li style="text-align:center;">
+        <img src="{% static 'roadGriev/images/login.jpg' %}" style="width:100px;height:auto;">
+      </li>
+      <br />
+      <li style="text-align:center;text-transform: capitalize;">
+        <h5>{{name}}</h5>
+        <h6>{{user_type}}</h6>
+      </li>
+      <br />
+      <li><a href="../" id="dasTab">Dashboard</a></li>
+      <li><a href="../addOfficer/" class="link-active" id="reqTab">Add Officer</a></li>
+      <li><a href="../setHirarchy/" id="repTab">Set Hierarchy</a></li>
+      <!-- <li><a href="../profile/" id="proTab">Profile</a></li>
+      <li><a href="../settings/" id="setTab">Settings</a></li> -->
+    </ul>
+    <div id="tabPen" style="margin-left:300px;padding:20px;">
+      <h1 style="text-align:center;">ADD NEW OFFICER</h1><br />
+      <div class="">
+        <div class="form-group">
+          <input type="text" class="form-control" id="name" placeholder="Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="pass" name="password" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="repass" name="repassword" placeholder="Confirm Password">
+        </div><br />
+        <select class="form-control" id="user_type">
+          <option value="" selected>Select Role</option>
+          {% for role in roles %}
+            <option value="{{role.role_name}}" style="color:black;text-transform:capitalize;">{{role.role_name}}</option>
+          {% endfor %}
+        </select><br />
+        <select class="form-control" id="SrOfficer">
+          <option value="-1" selected>Select Senior Officer</option>
+        </select><br />
+        <select class="form-control" id="Road_code">
+          <option value="-1" selected>Select Road Code</option>
+        </select><br />
+
+        <button type="submit" class="btn btn-primary btn-block" id="submit">Submit</button>
+      </div>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+
+          $("#SrOfficer").hide();
+          $("#Road_code").hide();
+
+
+          $("#user_type").change(function() {
+            $("#SrOfficer").empty();
+            $("#Road_Code").empty();
+            $("#SrOfficer").append('<option value="-1" selected>Select Senior Officer</option>');
+            $("#Road_Code").append('<option value="-1" selected>Select Road Code</option>');
+
+            $("#SrOfficer").hide();
+            $("#Road_code").hide();
+
+            if($("#user_type").val() == "Section Officer") {
+              $("#SrOfficer").show();
+              $("#Road_code").show();
+            } else if ($("#user_type").val() != "Chief Engineer"){
+              $("#SrOfficer").show();
+            } else {
+              //Chief Engineer
+              return;
+            }
+
+            $.get("../../../getSrOfficerList/?name=" + $("#user_type").val(), (data, status) => {
+              data.list.forEach((item, index) => {
+                $("#SrOfficer").append("<option value ='"+ item.id +"'>"+ item.name +"</option>");
+              });
+            });
+
+            $.get("../../../getRoadsList/", (data, status) => {
+              data.list.forEach((item, index) => {
+                $("#Road_code").append("<option value ='"+ item.code +"'>" + item.code + " -> "+ item.name +"</option>");
+              });
+            });
+
+          });
+
+        });
+        $(document).ready(function() {
+
+          $("#submit").click(function() {
+            var name = $("#name").val(),
+                email = $("#email").val(),
+                password = $("#pass").val(),
+                repass = $("#repass").val(),
+                user_type = $("#user_type").val(),
+                road_code = $("#Road_code").val(),
+                SrOfficer = $("#SrOfficer").val();
+
+                var condition = ( name == "" || email == "" || password == "" || repass == "" || user_type == "" );
+                console.log(condition);
+                if(condition) {
+                  alert("please enter valid data");
+                }
+                else {
+
+                  if (password !== repass) {
+                    alert("PASSWORD is not matched");
+                    return;
+                  }
+
+                  $.ajax({
+                    url: "../../../OfficerSignup",
+                    data: {
+                        'name': name,
+                        'email': email,
+                        'password': password,
+                        'user_type': user_type,
+                        'road_code': road_code,
+                        'SrOfficer': SrOfficer
+                    },
+                    type: "POST",
+                    success: function(data) {
+                      console.log(data);
+                      if(data.status == 0) {
+                        alert("User Registered");
+                        location.reload();
+                      }else {
+                        alert("Unknown ERROR");
+                      }
+                      console.log(data);
+                    }
+                  });
+
+                  // let a = {
+                  //     'name': name,
+                  //     'email': email,
+                  //     'password': password,
+                  //     'user_type': user_type,
+                  //     'road_code': road_code,
+                  //     'SrOfficer': SrOfficer
+                  //   };
+                  //
+                  // console.log(a);
+                }
+          });
+        });
+      </script>
+    </div>
+  </body>
+</html>
