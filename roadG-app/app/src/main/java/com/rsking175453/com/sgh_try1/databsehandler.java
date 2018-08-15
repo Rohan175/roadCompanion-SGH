@@ -20,11 +20,9 @@ public class databsehandler extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "ROAD_COMPLAINTS";
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_CURR_OFFICER_ID = "OFFICER_ID";
-
     public static final String COLUMN_URL = "URL";
     public static final String COLUMN_LAT = "LOCATION_LATITUDE";
     public static final String COLUMN_LONG = "LOCATION_LONGITUDE";
-
     public static final String COLUMN_DESCRIPTION = "DESCRIPTION";
     public static final String COLUMN_GRIEVANCE_TYPE = "GRIEVANCE_TYPE";
     public static final String COLUMN_EMAIL = "EMAIL";
@@ -66,9 +64,14 @@ public class databsehandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(sqLiteDatabase);
+    }
+
+    public void delete(){
+        database=getWritableDatabase();
+        database.execSQL(" DELETE FROM  "+ TABLE_NAME);
+        database.close();
     }
 
     public void insertRecord(SingleItemModel contactModel) {

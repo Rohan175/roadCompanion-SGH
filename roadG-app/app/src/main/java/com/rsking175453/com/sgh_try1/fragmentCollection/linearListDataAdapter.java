@@ -45,7 +45,7 @@ public class linearListDataAdapter extends RecyclerView.Adapter<linearListDataAd
 
 
         SingleItemModel singleItem = itemsList.get(i);
-        holder.area.setText(singleItem.getTaluka().toUpperCase());
+       // holder.area.setText(singleItem.getTaluka().toUpperCase());
         holder.status.setText(singleItem.getStatus().toUpperCase());
 
         holder.date.setText(singleItem.getTime().toUpperCase().substring(0,10) );

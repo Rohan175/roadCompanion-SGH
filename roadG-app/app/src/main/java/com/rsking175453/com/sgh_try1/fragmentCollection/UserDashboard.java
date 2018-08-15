@@ -66,7 +66,7 @@ import static com.android.volley.VolleyLog.TAG;
  * create an instance of this fragment.
  */
 public class UserDashboard extends Fragment {
-
+    private static final String TAG = "UserDashboard";
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -143,9 +143,11 @@ public class UserDashboard extends Fragment {
         sampleData2 = db.getAllRecords();
 
         if(sampleData2.size() > 0 ){
+            Log.v(TAG,"size greater than zero checking update");
             showRecyclerView();
-            //Check if updated
+            new checkUpdateAsync().execute(URLs.UPTATED_COMPLAIN);
         }else {
+            Log.v(TAG,"getting json first if");
             getJsondata();
         }
 
@@ -155,28 +157,13 @@ public class UserDashboard extends Fragment {
 
                 Location location1 = null;
                 locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
+                if ((!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) || (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))) {
+                    Log.v(TAG,"build called...");
                     buildAlertMessageNoGps();
 
                 } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//                    StringBuilder s = new StringBuilder();
-//                    for(int k=0;k<5;k++){
-                           location1 = getLocation();
 
-//                        try {
-//                            lat = String.valueOf(location1.getLatitude());
-//                            lon = String.valueOf(location1.getLongitude());
-//                            s.append("lat : "+lat+"\nlon : "+lon+"\n");
-//
-//                            Thread.sleep(2000);
-//                            Toast.makeText(getActivity(),"lat : "+lat+"\nlon : "+lon+"\n", Toast.LENGTH_SHORT).show();
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//
-//                    }
-//
+                           location1 = getLocation();
 //                    Log.d(TAG, "onClick: latLong : " + s.toString());
 //                    Toast.makeText(getActivity(),s.toString(), Toast.LENGTH_LONG).show();
                 }
@@ -200,6 +187,69 @@ public class UserDashboard extends Fragment {
         });
 
         return view;
+    }
+
+
+    private class checkUpdateAsync extends AsyncTask<String,Void ,Void>{
+
+        private Integer shouldUpdate;
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            shouldUpdate = 0;
+            Log.v(TAG,strings[0]);
+            HttpHandker sh = new HttpHandker();
+            String jsonStr = sh.makeServiceCall(strings[0]);
+            Log.v(TAG, "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONObject jsonObj = new JSONObject(jsonStr);
+                    shouldUpdate = Integer.parseInt(jsonObj.getString("data"));
+
+                } catch (final JSONException e) {
+                    Log.e(TAG, "Json parsing error: " + e.getMessage());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),
+                                    "Json parsing error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+                }
+            } else {
+                Log.e(TAG, "Couldn't get json from server.");
+                if(getActivity()!=null){
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),
+                                    "Please Check your Internet Conenction",
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(shouldUpdate == 1){
+
+                //getWritableDatabase();
+                Log.d(TAG,"db cleared");
+                sampleData2.clear();
+                db.delete();
+                getJsondata();
+
+            }
+
+        }
     }
 
     public class CustomLinearLayoutManager extends LinearLayoutManager {
@@ -228,7 +278,7 @@ public class UserDashboard extends Fragment {
         //String url = "https://roadg.herokuapp.com/user/search/?key=2901&email=kaushikjadav602@gmail.com";
         //String url = "https://unpremeditated-usag.000webhostapp.com/index1.json";
 
-
+        Log.v(TAG,"json data called");
         String url = URLs.User_complain + "?user_id="+sharedPreference.getInstance(getActivity()).getUser().getId();
         String url2 = URLs.Category ;
         Log.v("Links",url + url2);
@@ -408,6 +458,7 @@ public class UserDashboard extends Fragment {
 
             super.onPostExecute(result);
             if(!sampleData2.isEmpty()) {
+                Log.v(TAG,"showing recycle on post");
                 showRecyclerView();
             }
             else{

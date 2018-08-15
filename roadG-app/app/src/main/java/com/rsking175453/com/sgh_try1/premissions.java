@@ -19,11 +19,12 @@ public class premissions {
         this.c = c;
     }
 
-    public void permissionmethod(){
+    public static void  permissionmethod(Context c){
         int Permission_All = 1;
 
         String[] Permissions = {
                 android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.READ_CONTACTS,
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.INTERNET,
                 android.Manifest.permission.ACCESS_WIFI_STATE,
@@ -31,7 +32,7 @@ public class premissions {
                 android.Manifest.permission.MEDIA_CONTENT_CONTROL,
                 android.Manifest.permission.CAMERA, };
         if(!hasPermissions(c, Permissions)){
-            ActivityCompat.requestPermissions((Activity) c, Permissions, Permission_All);
+            ActivityCompat.requestPermissions((Activity) c, Permissions, 1);
         }
 
     }

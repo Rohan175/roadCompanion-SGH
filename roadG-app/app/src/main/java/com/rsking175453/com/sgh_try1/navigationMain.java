@@ -136,8 +136,9 @@ public class navigationMain extends AppCompatActivity {
                 //toolbar.setTitle(user.gettype());
                 //toolbar.setTitle(user.getUsername());
                 setSupportActionBar(toolbar);
+                premissions.permissionmethod(this);
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                //ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
                 fragmentManager = getFragmentManager();
                 UserDashboard fragmentN = new UserDashboard();

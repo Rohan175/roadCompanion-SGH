@@ -13,6 +13,7 @@ public class URLs {
     public static  String Sorted_data= ROOT_URL + "SortedData";
     public static  String Category = ROOT_URL + "TypesOfGrievances";
     public static  String STATUS_CHANGE= ROOT_URL + "ComplaintStatusChange";//user id ....complain id..officer id...new status
+    public static String UPTATED_COMPLAIN = ROOT_URL + "UptatedComplaint";
 
     public static void changeRoot(String url){
 
@@ -24,6 +25,7 @@ public class URLs {
         Sorted_data= url + "SortedData";
         Category = url + "TypesOfGrievances";
         STATUS_CHANGE= url + "ComplaintStatusChange";
+        UPTATED_COMPLAIN = url + "uptatedComplaint";
     }
 
 
