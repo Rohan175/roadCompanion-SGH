@@ -4,18 +4,12 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
-
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -28,9 +22,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".MainActivity" />
         <activity android:name=".input" android:screenOrientation="portrait"/>
-        <activity android:name=".jsonParsingListView" />
         <activity
             android:name=".navigationMain"
             android:label="@string/title_activity_navigation_main"
@@ -38,13 +30,9 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".volleyGet" />
-        <activity android:name=".glide" />
-        <activity android:name=".recycleTime1" />
         <activity android:name=".registerActivity" />
         <activity
             android:name=".LoginActivity2"
@@ -63,7 +51,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".map.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".ScrollingActivity"
@@ -71,11 +59,11 @@
             android:screenOrientation="portrait"
             android:title="Road Grivance" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".old.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity android:name=".settingActivity"></activity>
+        <activity android:name=".old.settingActivity"></activity>
         
-        <service android:name=".LocationService"
+        <service android:name=".old.LocationService"
             android:enabled="true"
             android:exported="false"> </service>
     </application>

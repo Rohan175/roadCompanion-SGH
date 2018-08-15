@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.rsking175453.com.sgh_try1.HttpHandker;
 import com.rsking175453.com.sgh_try1.R;
+import com.rsking175453.com.sgh_try1.databsehandler;
 import com.rsking175453.com.sgh_try1.old.TaskCanceler;
 import com.rsking175453.com.sgh_try1.models.URLs;
 import com.rsking175453.com.sgh_try1.models.User;
@@ -78,7 +79,7 @@ public class UserDashboard extends Fragment {
 
     ArrayList<SingleItemModel> sampleData;
     ArrayList<SingleItemModel> sampleData2;
-
+    private databsehandler db;
     private String mParam1;
     private String mParam2;
     private ConstraintLayout c;
@@ -134,9 +135,19 @@ public class UserDashboard extends Fragment {
 
         r1 = (RecyclerView) view.findViewById(R.id.userRecycleView);
         r1.setHasFixedSize(true);
+
         sampleData2 = new ArrayList<>();
         //createDummyData();
-        getJsondata();
+
+        db = new databsehandler(getActivity());
+        sampleData2 = db.getAllRecords();
+
+        if(sampleData2.size() > 0 ){
+            showRecyclerView();
+            //Check if updated
+        }else {
+            getJsondata();
+        }
 
         view.findViewById(R.id.complainFab).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,6 +300,7 @@ public class UserDashboard extends Fragment {
 
 
                         SingleItemModel s = new SingleItemModel(url,Description,Loclong,Loclat,area,city,state,roadType,grievType,workstatus,timeStamp,isEmergency,officerId,officerName,comment,estimatedTime,email,id);
+                        db.insertRecord(s);
                         sampleData2.add(s);
                     }
 
@@ -396,10 +408,7 @@ public class UserDashboard extends Fragment {
 
             super.onPostExecute(result);
             if(!sampleData2.isEmpty()) {
-
-                linearListDataAdapter adapter = new linearListDataAdapter(getActivity(), sampleData2);
-                r1.setLayoutManager(new CustomLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-                r1.setAdapter(adapter);
+                showRecyclerView();
             }
             else{
 
@@ -421,6 +430,13 @@ public class UserDashboard extends Fragment {
         }
 
     }
+
+    private void showRecyclerView() {
+        linearListDataAdapter adapter = new linearListDataAdapter(getActivity(), sampleData2);
+        r1.setLayoutManager(new CustomLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        r1.setAdapter(adapter);
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
