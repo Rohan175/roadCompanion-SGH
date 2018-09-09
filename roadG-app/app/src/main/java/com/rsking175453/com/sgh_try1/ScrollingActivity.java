@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ public class ScrollingActivity extends AppCompatActivity {
         String area = i.getStringExtra("Area");
         String griv = i.getStringExtra("griv");
         String road = i.getStringExtra("road");
+        String complainId = i.getStringExtra("complainId");
         String city = i.getStringExtra("city");
         String discriptiom = i.getStringExtra("Discriptiom");
         String status = i.getStringExtra("status");
@@ -53,7 +55,7 @@ public class ScrollingActivity extends AppCompatActivity {
         String Estimatedtime = i.getStringExtra("estimatedTime");
         final String email = i.getStringExtra("email");
         String time = i.getStringExtra("time");
-        time = "24-3-2018 8:30";
+        //time = "24-3-2018 8:30";
 
         TextView t = (TextView)findViewById(R.id.taluka_name);
         t.setText(area);
@@ -61,27 +63,33 @@ public class ScrollingActivity extends AppCompatActivity {
         t2.setText(griv);
         TextView t3 = (TextView)findViewById(R.id.roadTypeScroll);
         t3.setText(road);
-
-
+        TextView complainIdText = (TextView)findViewById(R.id.complain_id);
+        complainIdText.setText(complainId);
         TextView t4 = (TextView)findViewById(R.id.statusScroll);
         t4.setText(status.toUpperCase());
-
-
         TextView t5 = (TextView)findViewById(R.id.district_name);
         t5.setText(city);
 
 
-        //TextView t6 = (TextView)findViewById(R.id.discription);
-//        t6.setText(discriptiom);
+        TextView t6 = (TextView)findViewById(R.id.descriptions);
+        t6.setText(discriptiom);
 
 
         TextView t7 = (TextView)findViewById(R.id.comment);
         t7.setText(comment);
 
+        TextView roadName = (TextView)findViewById(R.id.roadName);
+        roadName.setText(road);
+
 
         TextView t8 = (TextView)findViewById(R.id.officerName);
         t8.setText(officerName);
+        Log.v("input2",Estimatedtime.toString());
 
+        if(Estimatedtime == null || Estimatedtime.toString().toLowerCase() == "none"){
+            Estimatedtime = "To be updated soon";
+            Log.v("input2",Estimatedtime);
+        }
 
         TextView t9 = (TextView)findViewById(R.id.estimatedDate);
         t9.setText(Estimatedtime);
@@ -110,9 +118,9 @@ public class ScrollingActivity extends AppCompatActivity {
             time = "24-3-2018 8:30";
         }
 
-        String[] times = time.split("\\s+");
-        time = times[0];
-        t11.setText(time);
+        //String[] times = time.split("\\s+");
+        //time = times[0];
+        t11.setText(time.toUpperCase().substring(0,10));
 
 //        TextView t4 = (TextView)findViewById(R.id.discription);
 //        t3.setText(discriptiom);

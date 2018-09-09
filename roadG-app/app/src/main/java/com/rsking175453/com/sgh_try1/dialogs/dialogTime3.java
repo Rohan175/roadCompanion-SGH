@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.rsking175453.com.sgh_try1.R;
+
 
 public class dialogTime3 extends DialogFragment {
     @Override
@@ -27,6 +29,7 @@ public class dialogTime3 extends DialogFragment {
                 })
                 .setNegativeButton("Try Again", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        getActivity().findViewById(R.id.submit).callOnClick();
                         dialog.dismiss();
                     }
                 });

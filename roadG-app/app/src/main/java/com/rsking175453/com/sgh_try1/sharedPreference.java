@@ -162,6 +162,10 @@ public class sharedPreference {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
-        mCtx.startActivity(new Intent(mCtx, LoginActivity2.class));
+        Intent intent=new Intent(mCtx, LoginActivity2.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        mCtx.startActivity(intent);
+
+
     }
 }

@@ -10,13 +10,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.rsking175453.com.sgh_try1.Adapter;
 import com.rsking175453.com.sgh_try1.R;
 import com.rsking175453.com.sgh_try1.models.Image;
@@ -102,6 +102,7 @@ public class recycleTime1 extends AppCompatActivity {
                                     images.add(image);
 
                                 } catch (JSONException e) {
+
                                     Log.e(TAG, "Json parsing error: " + e.getMessage());
                                 }
                             }
@@ -111,7 +112,7 @@ public class recycleTime1 extends AppCompatActivity {
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e(TAG, "Error: " + error.getMessage());
+                    //Log.e(TAG, "Error: " + error.getMessage());
                     pDialog.hide();
                 }
             });

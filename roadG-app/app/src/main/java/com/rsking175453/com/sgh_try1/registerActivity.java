@@ -295,7 +295,7 @@ public class registerActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                "Network Connectivity Error : Please Check your internet conenction.",
                                 Toast.LENGTH_LONG)
                                 .show();
                     }

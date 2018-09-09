@@ -16,13 +16,17 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.provider.SyncStateContract;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,6 +54,7 @@ import com.uploadcare.android.library.exceptions.UploadcareApiException;
 import com.uploadcare.android.library.upload.FileUploader;
 import com.uploadcare.android.library.upload.Uploader;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,6 +63,7 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,10 +71,11 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 import static android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
 
-public class input extends AppCompatActivity {
+public class input extends AppCompatActivity{
 
     public LocationManager locationManager;
     MyLocationListener locationListener;
@@ -94,8 +101,7 @@ public class input extends AppCompatActivity {
     private ImageView imgPreviewMain;
     private int acc;
 
-    public input() {
-    }
+    public input() {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +143,7 @@ public class input extends AppCompatActivity {
 
                 if(locationManager != null) {
 
-                    Toast.makeText(input.this,"LocationListner Stopped",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"LocationListner Stopped",Toast.LENGTH_LONG);
                     locationManager.removeUpdates(locationListener);
                     locationManager = null;
                 }
@@ -152,7 +158,7 @@ public class input extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(
-                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                 startActivityForResult(i, 1);
             }
@@ -215,11 +221,16 @@ public class input extends AppCompatActivity {
         });
 
         Button submit = (Button) findViewById(R.id.submit);
+        pDialog = new ProgressDialog(input.this);
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+
         Button cancel = (Button) findViewById(R.id.cancelLink);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+           //     startActivity(new Intent(input.this,navigationMain.class).setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY));
                 finish();
             }
         });
@@ -227,15 +238,10 @@ public class input extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               // Log.v("Load","Submit called");
 
-
-                pDialog = new ProgressDialog(input.this);
-                pDialog.setMessage("Please wait...");
-                pDialog.setCancelable(false);
                 pDialog.show();
                 Log.v("input2","Submitting");
-
-
                 String locationEdited = location.getText().toString();
                 final String[] locationEditedA = locationEdited.split(",");
 
@@ -263,9 +269,10 @@ public class input extends AppCompatActivity {
                 }
 
                 user = sharedPreference.getInstance(input.this).getUser();
-                lang = locationEditedA[1];
-                lat2 = locationEditedA[0];
-//
+                //Reploace
+                lang = locationEditedA[1].replaceAll("\n","");
+                lat2 = locationEditedA[0].replaceAll("\n","");;
+                Log.v("input2",lang + lat2);
 //                final double lang = Double.parseDouble(locationListener.lat);
 //                final double lat2 = Double.parseDouble(locationListener.lon);
 
@@ -298,8 +305,11 @@ public class input extends AppCompatActivity {
 
                 WifiManager wifi = (WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 if (wifi.isWifiEnabled()|| mobileDataEnabled){
-                      //679938e7aa18badb637f
-                    new compressAndUploadImageAsync(getApplicationContext()).execute();
+
+                    //Bisag API
+                    String url = URLs.BISAG_API + lat2 + "&lon=" + lang;
+                    new checkRoadAsync().execute(url);
+
 
                 }else{
 
@@ -333,9 +343,129 @@ public class input extends AppCompatActivity {
 
 
     }
+    public void uploadMultipart(String path) {
+
+        //String url = "http://192.168.43.149:8008/upload_image/";
+        //String url = "http://192.168.43.89/util.php";
+        //String url = "https://quiztime-induction.herokuapp.com/upload_image/";
+
+
+//        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d("Response", response);
+//                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+//                        pDialog.dismiss();
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                pDialog.dismiss();
+//                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+//                    Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+//
+//                } else if (error instanceof AuthFailureError) {
+//                    //TODO
+//                } else if (error instanceof ServerError) {
+//                    //TODO
+//                } else if (error instanceof NetworkError) {
+//                    //TODO
+//                } else if (error instanceof ParseError) {
+//                    //TODO
+//                }
+//
+//            }
+//        });
+//
+//        smr.addFile("image2", path);
+//
+//        RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+//        mRequestQueue.add(smr);
+    }
+
+    public String getPath(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
+        cursor.close();
+
+        cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+        return path;
+    }
+
+    private class checkRoadAsync extends AsyncTask<String,Void,ErrorAsync>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Checking Road...");
+
+        }
+
+        @Override
+        protected ErrorAsync doInBackground(String... s) {
+            Log.v("roadApi",s[0]);
+            HttpHandker sh = new HttpHandker();
+            String jsonStr = sh.makeServiceCall(s[0]);
+            ErrorAsync e = new ErrorAsync();
+            Log.v("input2", "Response from url: " + jsonStr);
+            if (jsonStr != null) {
+                try {
+                    JSONArray roadData = new JSONArray(jsonStr);
+
+                    if (roadData.length() == 0) { Log.v("Hello","if");e.msg = "This road is not under R&B department";} else{
+
+                        float min = 0.150f,index;
+                        for(int i=0; i < roadData.length();i++){
+                            float dis = Float.parseFloat(roadData.getJSONObject(i).getString("distance"));
+                            if(dis < min){
+                                min = dis;
+                                index = i;
+                            }
+                        }
+
+                        if(min > 0.149){
+                            Log.v("Hello","m");e.msg = "Please go near the road";
+                        }
+                    }
+                } catch (final JSONException j) {
+                    e.msg = "Road Json parsing error: " + j.getMessage();
+                    Log.d("input2", "Road Json parsing error: " + j.getMessage());
+                }
+            } else {
+                Log.d("input2", "Road : Couldn't get json from server.");
+                e.msg =  "Network Connectivity Error : Please Check your internet conenction.";
+            }
+            return e;
+        }
+
+        @Override
+        protected void onPostExecute(ErrorAsync e) {
+            super.onPostExecute(e);
+
+            if(e.msg != null && !e.msg.isEmpty()) {
+                pDialog.dismiss();
+                DialogFragment newFragment = new dialogTime3();
+                Bundle args = new Bundle();
+                args.putString("msg", e.msg);
+                newFragment.setArguments(args);
+                newFragment.show(getFragmentManager(), "hello");
+            }else{
+                //679938e7aa18badb637f
+                new compressAndUploadImageAsync(getApplicationContext()).execute();
+            }
+        }
+    }
 
     private class compressAndUploadImageAsync extends AsyncTask<Void,Void,Void>{
-
         private Context context;
         compressAndUploadImageAsync(Context context){
             this.context=context;
@@ -360,8 +490,14 @@ public class input extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Log.v("input2","uploading Image");
+
+
+            //
+            //
             pDialog.setMessage("Uploading Image....");
-            UploadcareClient client =  new UploadcareClient("dd15c727ad3e318e308a", "8b57288d33a0b69aaaf1");
+
+            //uploadMultipart(getPath(fileUri));
+            UploadcareClient client =  new UploadcareClient("802c27d76187f7b92bb8", "671d3141865bf0b4b8f1");
 
             Uploader uploader = new FileUploader(client, fileUri, context)
                     .store(true);
@@ -417,12 +553,9 @@ public class input extends AppCompatActivity {
         @Override
         protected Void doInBackground(String... s) {
             HttpHandker sh = new HttpHandker();
-
-            // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(s[0]);
 
             Log.v("input2", "Response from url: " + jsonStr);
-
             if (jsonStr != null) {
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
@@ -430,7 +563,7 @@ public class input extends AppCompatActivity {
                     if (status == 0) {
                         finish();
                         Log.v("input2", "registered complaioed");
-                        startActivity(new Intent(getApplicationContext(), navigationMain.class));
+                       // startActivity(new Intent(getApplicationContext(), navigationMain.class));
 
 
                     } else if(status == 1){
@@ -477,8 +610,6 @@ public class input extends AppCompatActivity {
                         });
 
                     }
-
-
                 } catch (final JSONException e) {
                     Log.e("input2", "Json parsing error: " + e.getMessage());
                     runOnUiThread(new Runnable() {
@@ -490,7 +621,6 @@ public class input extends AppCompatActivity {
                                     .show();
                         }
                     });
-
                 }
             } else {
                 Log.v("input2", "Couldn't get json from server.");
@@ -498,9 +628,11 @@ public class input extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(),
-                                "Couldn't get json from server. Check LogCat for possible errors!",
+                                "Network Connectivity Error : Please Check your internet conenction.",
                                 Toast.LENGTH_LONG)
                                 .show();
+                        //startActivity(new Intent(input.this,navigationMain.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                        finish();
                     }
                 });
 
@@ -515,6 +647,7 @@ public class input extends AppCompatActivity {
             // Dismiss the progress dialog
             if (pDialog.isShowing())
                 pDialog.dismiss();
+            finish();
         }
 
     }
@@ -543,10 +676,10 @@ public class input extends AppCompatActivity {
 
         public void requestRuntimePermission() {
             if (Build.VERSION.SDK_INT >= 23) {
-                if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(this,
-                            new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 }
             }
         }
@@ -584,11 +717,11 @@ public class input extends AppCompatActivity {
 
                 }else if (requestCode == 1) {
                     Intent i = new Intent(this,navigationMain.class);
-                    startActivity(i);
+                   // startActivity(i);
                     Toast.makeText(getApplicationContext(),
                             "User cancelled permission", Toast.LENGTH_SHORT)
                             .show();
-
+                    finish();
                 }
             if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
                 if (resultCode == RESULT_OK) {
@@ -604,7 +737,6 @@ public class input extends AppCompatActivity {
                         options.inSampleSize = 1;
                         bitmap = BitmapFactory.decodeFile(fileUri.getPath(),
                                 options);
-
                         imgPreviewMain.setImageBitmap(bitmap);
                         imgPreview.setImageBitmap(bitmap);
 
@@ -629,7 +761,8 @@ public class input extends AppCompatActivity {
                 } else if (resultCode == RESULT_CANCELED) {
 
                     Intent i = new Intent(this,navigationMain.class);
-                    startActivity(i);
+                   // startActivity(i);
+                    finish();
                     Toast.makeText(getApplicationContext(),
                             "User cancelled image capture", Toast.LENGTH_SHORT)
                             .show();
@@ -739,7 +872,8 @@ public class input extends AppCompatActivity {
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.cancel();
                         Intent i = new Intent(getApplicationContext(),navigationMain.class);
-                        startActivity(i);
+                        //startActivity(i);
+                        finish();
                         Toast.makeText(getApplicationContext(),
                                 "User cancelled Location capture", Toast.LENGTH_SHORT)
                                 .show();
@@ -749,4 +883,11 @@ public class input extends AppCompatActivity {
         alert.show();
     }
 
+    @Override
+    public void onBackPressed() {
+      //  super.onBackPressed();
+     //   finish();
+
+
+    }
 }

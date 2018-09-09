@@ -47,8 +47,15 @@ public class linearListDataAdapter extends RecyclerView.Adapter<linearListDataAd
         SingleItemModel singleItem = itemsList.get(i);
        // holder.area.setText(singleItem.getTaluka().toUpperCase());
         holder.status.setText(singleItem.getStatus().toUpperCase());
-
+        holder.grievance.setText(singleItem.getGrivType().toUpperCase());
         holder.date.setText(singleItem.getTime().toUpperCase().substring(0,10) );
+        if(singleItem.getEstimatedTime().toUpperCase().equals("NONE") || singleItem.getStatus().toUpperCase().equals("PENDING"))
+        {
+            holder.completionDate.setVisibility(View.GONE);
+            holder.completionDate1.setVisibility(View.GONE);
+        }
+        else
+            holder.completionDate1.setText(singleItem.getEstimatedTime().toUpperCase());
 
         Log.v("debug",itemsList.toString());
 
@@ -72,6 +79,9 @@ public class linearListDataAdapter extends RecyclerView.Adapter<linearListDataAd
 
         protected TextView status;
         protected TextView date;
+        protected TextView grievance;
+        protected TextView completionDate,completionDate1;
+
 
         protected Button delete;
         protected Button share;
@@ -88,7 +98,9 @@ public class linearListDataAdapter extends RecyclerView.Adapter<linearListDataAd
             this.status = (TextView) view.findViewById(R.id.status);
             this.date = (TextView) view.findViewById(R.id.date);
             this.itemImage = (ImageView) view.findViewById(R.id.itemImage);
-
+            this.grievance = (TextView) view.findViewById(R.id.textView9);
+            this.completionDate = (TextView) view.findViewById(R.id.textView10);
+            this.completionDate1 = (TextView) view.findViewById(R.id.timeOfCompletion1);
 
 
 
@@ -97,7 +109,7 @@ public class linearListDataAdapter extends RecyclerView.Adapter<linearListDataAd
                 public void onClick(View v) {
 
 
-                    Toast.makeText(v.getContext(), area.getText(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(v.getContext(), area.getText(), Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(v.getContext(),ScrollingActivity.class);
                     Log.v("debug",""+v.getId());
                     int id = getAdapterPosition();

@@ -52,6 +52,7 @@ public class navigationMain extends AppCompatActivity {
                     UserDashboard fragment1 = new UserDashboard();
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     transaction.replace(R.id.frameLayout, fragment1);
+                    transaction.addToBackStack(null);
                     transaction.commit();
                     break;
 
@@ -60,6 +61,7 @@ public class navigationMain extends AppCompatActivity {
                     contactsFragment fragment4 = new contactsFragment();
                     FragmentTransaction transaction3 = getFragmentManager().beginTransaction();
                     transaction3.replace(R.id.frameLayout, fragment4);
+                    transaction3.addToBackStack(null);
                     transaction3.commit();
 
                     break;
@@ -72,6 +74,7 @@ public class navigationMain extends AppCompatActivity {
                     b.putString("taluka","ahmedabad");
                     fragment2.setArguments(b);
                     transaction2.replace(R.id.frameLayout, fragment2);
+                    transaction2.addToBackStack(null);
                     transaction2.commit();
                     break;
                 case R.id.navigation_maps:
@@ -143,7 +146,7 @@ public class navigationMain extends AppCompatActivity {
                 fragmentManager = getFragmentManager();
                 UserDashboard fragmentN = new UserDashboard();
                 final FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.add(R.id.frameLayout, fragmentN).commit();
+                transaction.add(R.id.frameLayout, fragmentN).addToBackStack(null).commit();
                 mTextMessage = (TextView) findViewById(R.id.message);
                 BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
                 Menu menu = navigation.getMenu();
@@ -188,33 +191,30 @@ public class navigationMain extends AppCompatActivity {
         Intent i;
         switch (item.getItemId()) {
             case R.id.logout:
+                finish();
                 sharedPreference.getInstance(this).logout();
                 return true;
 
             case R.id.open1:
-
                 sharedPreference.getInstance(this).setValidate(1);
                 return true;
-            case R.id.open2:
 
+            case R.id.open2:
                 sharedPreference.getInstance(this).setValidate(2);
                 return true;
 
             case R.id.open3:
-
                 sharedPreference.getInstance(this).setValidate(0);
 //                i = new Intent(navigationMain.this,recycleTime1.class);
 //                startActivity(i);
                 return true;
 
             case R.id.open4:
-
                 i = new Intent(navigationMain.this,jsonParsingListView.class);
                 startActivity(i);
                 return true;
 
             case R.id.link:
-
                     changeLinkDialog newFragment = new changeLinkDialog();
                     newFragment.show(getFragmentManager(),"hello");
                 return true;
@@ -237,4 +237,10 @@ public class navigationMain extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Log.d("navigationMain","ON BACk PRESSED FROM NAVIGATION MAIN");
+        finish();
+        //super.onBackPressed();
+    }
 }

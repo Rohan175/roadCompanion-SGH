@@ -30,20 +30,6 @@
             app:srcCompat="@drawable/ic_launcher_background" />
 
 
-        <TextView
-            android:id="@+id/talukaSpinner2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/itemImage"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="Taluka :"
-            app:layout_constraintStart_toEndOf="@+id/itemImage"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        `
-
         <View
             android:id="@+id/view"
             android:layout_width="0dp"
@@ -53,6 +39,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:background="@color/mGray"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintRight_toRightOf="parent"
@@ -60,15 +47,45 @@
             app:layout_constraintTop_toBottomOf="@+id/talukaSpinner2" />
 
         <TextView
+            android:id="@+id/talukaSpinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/itemImage"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Taluka :"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="8dp"
+            android:text="Grievance Type:"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvTitle4"
+            app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toBottomOf="@+id/talukaSpinner"
+            app:layout_constraintVertical_chainStyle="packed" />
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/itemImage"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tvTitle4" />-->
+
+        <TextView
             android:id="@+id/tvTitle4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:capitalize="words"
             android:text="Status :"
+            app:layout_constraintBottom_toTopOf="@+id/textView8"
             app:layout_constraintStart_toEndOf="@+id/itemImage"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
         <TextView
@@ -85,8 +102,8 @@
 
         <TextView
             android:id="@+id/talukaSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="20dp"
             android:layout_marginStart="8dp"
             android:text="TextView"
             android:textAppearance="@style/mText"
@@ -96,12 +113,14 @@
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="18dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:text="Reported On :"
+            app:layout_constraintBottom_toTopOf="@+id/textView10"
             app:layout_constraintStart_toEndOf="@+id/itemImage"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle4" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle4"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/date"
@@ -112,7 +131,33 @@
             android:text="13/3/2018"
             android:textAppearance="@style/mText"
             app:layout_constraintBottom_toBottomOf="@+id/textView8"
-            app:layout_constraintStart_toEndOf="@+id/textView8" />
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Estimated Time :"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/itemImage"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+
+        <TextView
+            android:id="@+id/timeOfCompletion1"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:capitalize="words"
+            android:text="7 days "
+            android:textAppearance="@style/mText"
+            app:layout_constraintBottom_toBottomOf="@+id/textView10"
+            app:layout_constraintStart_toEndOf="@+id/textView10"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </android.support.constraint.ConstraintLayout>

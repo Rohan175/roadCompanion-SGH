@@ -33,10 +33,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".registerActivity" />
+        <activity android:name=".registerActivity" android:noHistory="true" />
         <activity
             android:name=".LoginActivity2"
             android:label="@string/title_activity_login"
+            android:noHistory="true"
             android:screenOrientation="portrait"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

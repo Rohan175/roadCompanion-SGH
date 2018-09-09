@@ -14,7 +14,8 @@ public class URLs {
     public static  String Category = ROOT_URL + "TypesOfGrievances";
     public static  String STATUS_CHANGE= ROOT_URL + "ComplaintStatusChange";//user id ....complain id..officer id...new status
     public static String UPTATED_COMPLAIN = ROOT_URL + "UptatedComplaint";
-
+    public static String BISAG_API = "https://ncog.gov.in/RNB_mob_data/get_road?code=4862&lat=";//23.4654&lon=";
+    public static String SIR_API = "https://quiztime-induction.herokuapp.com/road_api/?flag=o&dbName=quizMania_roads&lat=";//23.121640&lon=72.617236";
     public static void changeRoot(String url){
 
         ROOT_URL = url;

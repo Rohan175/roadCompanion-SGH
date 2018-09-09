@@ -147,6 +147,7 @@ public class UserDashboard extends Fragment {
             showRecyclerView();
             new checkUpdateAsync().execute(URLs.UPTATED_COMPLAIN);
         }else {
+
             Log.v(TAG,"getting json first if");
             getJsondata();
         }
@@ -244,7 +245,7 @@ public class UserDashboard extends Fragment {
                 //getWritableDatabase();
                 Log.d(TAG,"db cleared");
                 sampleData2.clear();
-                db.delete();
+
                 getJsondata();
 
             }
@@ -315,6 +316,7 @@ public class UserDashboard extends Fragment {
             Log.v("debug", "Response from url: " + jsonStr);
 
             if (jsonStr != null) {
+                db.delete();
                 try {
                     JSONObject jsonObj = new JSONObject(jsonStr);
 //
@@ -333,7 +335,17 @@ public class UserDashboard extends Fragment {
                         String area = c.getString("taluka");
                         String city = c.getString("district");
                         String state = c.getString("state");
-                        String roadType = c.getString("road_type");
+                        String roadType = c.getString("road_name");
+                        String[] temp = roadType.split(" ");
+                        StringBuilder stemp = new StringBuilder();
+                        int index=0;
+
+                        for(String x : temp){
+                            stemp.append(x+" ");
+                            index++;
+                            if(index%2==0) stemp.append("\n");
+                        }
+                        roadType = stemp.toString();
                         String grievType = c.getString("grievence_type");
 
                         String workstatus = c.getString("workstatus");
@@ -457,22 +469,17 @@ public class UserDashboard extends Fragment {
 
 
             super.onPostExecute(result);
-            if(!sampleData2.isEmpty()) {
-                Log.v(TAG,"showing recycle on post");
-                showRecyclerView();
-            }
-            else{
-
-               // c2.setVisibility(View.GONE);
-                c.setVisibility(View.VISIBLE);
-            }
-
+           // if(!sampleData2.isEmpty()) {
+            Log.d(TAG, "onPostExecute: Called");
 
             if (pDialog.isShowing())
                 pDialog.dismiss();
 
             requestRuntimePermission();
-                Log.v("upload","uploading....."+sharedPreference.getImageUrl());
+            showRecyclerView();
+
+
+           // Log.v("upload","uploading....."+sharedPreference.getImageUrl());
 
 //                if(!sharedPreference.getInstance(getActivity()).getComplain().getImageUrl().equals("hello"));
 //                    uploadOfflineStuff();
@@ -483,9 +490,21 @@ public class UserDashboard extends Fragment {
     }
 
     private void showRecyclerView() {
-        linearListDataAdapter adapter = new linearListDataAdapter(getActivity(), sampleData2);
-        r1.setLayoutManager(new CustomLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        r1.setAdapter(adapter);
+        if(sampleData2.size()>0) {
+            linearListDataAdapter adapter = new linearListDataAdapter(getActivity(), sampleData2);
+            r1.setLayoutManager(new CustomLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            r1.setAdapter(adapter);
+        }
+       else
+        {
+            Log.d(TAG, "showRecyclerView: else called");
+            TextView noComplaints,noComplaints1;
+            noComplaints = (TextView)view.findViewById(R.id.textView12);
+            noComplaints1 = (TextView)view.findViewById(R.id.textView18);
+            noComplaints.setVisibility(View.GONE);
+            noComplaints1.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public interface OnFragmentInteractionListener {
@@ -627,5 +646,6 @@ public class UserDashboard extends Fragment {
         }
         return null;
     }
+
 
 }
