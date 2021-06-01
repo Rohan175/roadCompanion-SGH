@@ -9,7 +9,7 @@ pytz==2017.3
 PyYAML==3.12
 requests==2.18.4
 ua-parser==0.7.3
-urllib3==1.22
+urllib3==1.26.5
 user-agents==1.1.0
 gunicorn>=19.1.0
 psycopg2>=2.7
